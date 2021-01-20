@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LED Control</title>
+    <link href='main.css' rel='stylesheet' type='text/css'>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="144x144"  href="/favicon-144x144.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon.ico">
+    <link rel="manifest" href="/manifest.json">
+    <script src="./iro.min.js"></script>
+    <meta name="theme-color" content="#00878f">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'>
+    <script src="WebSocket.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <center>
+        <p style="margin:-15px 0px 10px 0px"><button class="button" style="margin:none;" id="M4" type="button"  onclick="changeStairs();" >Change Stairs</button></p>
+        <header>
+            <h1>LED Control</h1>
+        </header>
+ 
+           
+      
+     
+        <div style="padding-top: 5px;" class="containerDiv">
+            <p1 style="margin-bottom: 20px; color: red;" id="connectionStatus">Not Connected</p1>
+            <div class="onoffswitch" style="margin-top:10px">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch"  oninput="changeColourMode();" checked>
+                <label class="onoffswitch-label" for="myonoffswitch">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                </label>
+            </div>
+            <div id="color-picker-container" style="margin-top: 20px;"></div>
+            <!-- <p style="margin:8px 0px"><button id="rainbow" class="button" style="background-color:#999" onclick="rainbowEffect();">Rainbow</button></p> -->
+        </div>
+        <!-- <div class=" containerDiv" >
+            <div>
+                <p style="margin:8px 0px; width:50%"><button class="button" id="M1" type="button"  onclick="sendButton(0);">Normal</button></p>
+            </div>
+        </div>  -->
+        
+        <div class="Button-Grid containerDiv" >
+                <div>
+                    <p style="margin:8px 0px; width:100%"><button class="button" id="M1" type="button"  onclick="sendButton(0);">Normal</button></p>
+                </div>
+                <div>
+                   
+                    <p style="margin:8px 0px"><button class="button" id="M2" type="button"  onclick="sendButton(1);" >Rainbow</button></p>
+                </div>
+                <div>
+                  
+                    <p style="margin:8px 0px"><button class="button" id="M3" type="button"  onclick="sendButton(2);" >Candy Cane</button></p>
+                </div>
+                <div>
+                   
+                    <p style="margin:8px 0px"><button class="button" id="M4" type="button"  onclick="sendButton(3);" >Still</button></p>
+                </div>
+                <div>
+                   
+                    <!-- <p style="margin:8px 0px"><button class="button" id="M5" type="button"  onclick="sendButton(4);" >Rainbow All</button></p> -->
+
+                </div>
+            
+                  </div>
+<div class="containerDiv">
+    <tr>
+        <td style="width:14.4px; text-align: right">Speed: </td>
+        <td><input class="enabled" id="timeout" type="range" min="1" max="3000" step="1" oninput="sendTimeout()" value="0"></td>
+    </tr>
+ 
+</div>
+                   </center>
+</body>
+<script>
+    
+    var colorPicker = new iro.ColorPicker('#color-picker-container',{
+ // Set the size of the color picker
+ width: 320,
+  // Set the initial color to pure red
+  color:{h: 360, s: 0, v: 60}
+
+    });
+
+    function onColorChange(color, changes) {
+  // print the color's new hex value to the developer console
+  
+ // console.log(color.rgb);
+  //console.log(color.hsl);
+//  console.log(color.hsv.v);
+try {
+    sendRGB();
+}finally{
+    console.log("Error RGB Coneection");
+}
+  
+}
+
+// listen to a color picker's color:change event
+colorPicker.on('input:end', onColorChange);
+
+
+    </script>
+
+</html>
